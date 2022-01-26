@@ -64,7 +64,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				if replyMessages, err := eventHandler(message.Text); err == nil {
+				if replyMessages, err := eventHandler(event.Source.UserID, message.Text); err == nil {
 					_, err := bot.ReplyMessage(event.ReplyToken, replyMessages...).Do()
 					if err != nil {
 						log.Print(err)
@@ -77,7 +77,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func eventHandler(inMessage string) (results []linebot.SendingMessage, err error) {
+func eventHandler(inUser, inMessage string) (results []linebot.SendingMessage, err error) {
 
 	//err = fmt.Errorf("no event")
 
@@ -98,8 +98,13 @@ func eventHandler(inMessage string) (results []linebot.SendingMessage, err error
 		}
 
 	case "抽":
-		//imageMsg := linebot.NewImageMessage("https://i.imgur.com/CMp5awi.png", "https://i.imgur.com/CMp5awi.png")
 		preview, link := imgur.GetRandAlbumLink(imgur.AlbumGirl)
+
+		if inUser == "" {
+			preview, link = imgur.GetRandAlbumLink(imgur.AlbumFeiyo)
+		}
+		//imageMsg := linebot.NewImageMessage("https://i.imgur.com/CMp5awi.png", "https://i.imgur.com/CMp5awi.png")
+
 		imageMsg := linebot.NewImageMessage(preview, link)
 
 		results = append(results, imageMsg)
@@ -110,9 +115,14 @@ func eventHandler(inMessage string) (results []linebot.SendingMessage, err error
 		// imageMsg := linebot.NewVideoMessage("https://v16-webapp.tiktok.com/b93c12d5b1df54a72489c4529f4a2e03/61efd2d7/video/tos/alisg/tos-alisg-pve-0037/38ea2f650270497f93b2cd56a8153a74/?a=1988&br=2942&bt=1471&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=pCjVgag3-InYhx.Oc6&l=202201250436580102440552200605C176&lr=tiktok&mime_type=video_mp4&net=0&pl=0&qs=0&rc=M3I6cDY6ZnI2NzMzODgzNEApZTw4OTdnODs5Nzc5ZWk2O2dkMmxpcjRvamFgLS1kLy1zcy5jLzMyNmE1Ml9eMmMuNjA6Yw%3D%3D&vl=&vr=",
 		// 	"https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tiktok-obj/1630275762697218.jpeg?x-expires=1643173200&x-signature=kCcv2bKlmOVOzxWORyUAHAGvySU%3D")
 		preview, link := imgur.RandVideo()
-		videoMsg := linebot.NewVideoMessage(preview, link)
+		videoMsg := linebot.NewVideoMessage(link, preview)
 
 		results = append(results, videoMsg)
+	case "坦", "扛":
+		preview, link := imgur.GetRandAlbumLink(imgur.AlbumMeme)
+		imageMsg := linebot.NewImageMessage(preview, link)
+
+		results = append(results, imageMsg)
 	default:
 		return
 	}
