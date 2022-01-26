@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/kkdai/LineBotTemplate/imgur"
@@ -28,7 +29,7 @@ import (
 var bot *linebot.Client
 
 const (
-	port               = "80"
+	port               = "8000"
 	channelSecret      = "ef013359722736ac09f50f90e882c27d"
 	channelAccessToken = "nVTZGhQzCtStrobItATyfE3evValw6eFQBVmWOisn13jTFriwxiTmaDYObv5SwgGqJZOSkkr9dYoRFZPj+vpUMvzvIsm6VOlM65ccBQUe/Etzda2P52OwNWlmoIdIPTwWxAkfeDYIoi8Pj7m4KUQxAdB04t89/1O/w1cDnyilFU="
 )
@@ -39,7 +40,7 @@ func main() {
 	bot, err = linebot.New(channelSecret, channelAccessToken)
 	log.Println("Bot:", bot, " err:", err)
 	http.HandleFunc("/callback", callbackHandler)
-	//port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
 	log.Print("Server Start ...")
 	if err = http.ListenAndServe(addr, nil); err == nil {
