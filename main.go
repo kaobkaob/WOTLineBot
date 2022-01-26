@@ -28,7 +28,7 @@ import (
 var bot *linebot.Client
 
 const (
-	port               = "8000"
+	port               = "80"
 	channelSecret      = "ef013359722736ac09f50f90e882c27d"
 	channelAccessToken = "nVTZGhQzCtStrobItATyfE3evValw6eFQBVmWOisn13jTFriwxiTmaDYObv5SwgGqJZOSkkr9dYoRFZPj+vpUMvzvIsm6VOlM65ccBQUe/Etzda2P52OwNWlmoIdIPTwWxAkfeDYIoi8Pj7m4KUQxAdB04t89/1O/w1cDnyilFU="
 )
