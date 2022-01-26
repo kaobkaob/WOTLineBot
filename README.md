@@ -80,3 +80,4 @@ limitations under the License.
 #ngrok
 #./ngrok http 8000
 #https://developers.line.biz/console/channel/1656822632/messaging-api
+#https://wotchatbot.herokuapp.com/callback
