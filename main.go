@@ -37,6 +37,8 @@ const (
 	meUID    = "U4baaa53fe69d189e272d1aaa4deffe9e"
 	feiyoUID = "U90ccc43a7575a173397b9d8d0b5f1e01"
 	tataUID  = "Ua5d8aac70a1c84aa4d4c4850f1c0974c"
+	tyUID    = "Ub4f2e9497822c8e93a8725be3100fcae"
+	sisterID = "U331854135514f7054055c4d3a598cf77"
 )
 
 func main() {
