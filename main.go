@@ -95,6 +95,16 @@ func eventHandler(inUser, inMessage string) (results []linebot.SendingMessage, e
 	}
 
 	switch events[0] {
+	case "!help":
+		helpInfo := `目前指令:
+		1. 分身 {id} {伺服器} (查詢wow分身)
+		2. 抽 (隨機美女圖)
+		3. 吃 (隨機美食)
+		4. 坦 (隨機梗圖)
+		5. 扛 (隨機梗圖)
+		`
+
+		results = append(results, linebot.NewTextMessage(helpInfo))
 	case "分身": //分身 名字 伺服器
 		var characterInfos []string
 		if characterInfos, err = wow.QueryCharacterOtherRole(events[1], events[2]); err != nil {
@@ -137,6 +147,12 @@ func eventHandler(inUser, inMessage string) (results []linebot.SendingMessage, e
 		imageMsg := linebot.NewImageMessage(preview, link)
 
 		results = append(results, imageMsg)
+	case "吃":
+		preview, link := imgur.GetRandAlbumLink(imgur.AlbumFood)
+		imageMsg := linebot.NewImageMessage(preview, link)
+
+		results = append(results, imageMsg)
+
 	default:
 		return
 	}

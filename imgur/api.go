@@ -20,6 +20,7 @@ const AlbumMeme string = "wsxIIJ2"
 const AlbumGirl string = "5Ae8BSu"
 const AlbumFeiyo string = "9unQFQS"
 const AlbumTATA string = "fIQ5bLy"
+const AlbumFood string = "6n5GHkV"
 
 func GetRandAlbumLink(inAlbumName string) (string, string) {
 
