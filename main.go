@@ -36,6 +36,7 @@ const (
 const (
 	meUID    = "U4baaa53fe69d189e272d1aaa4deffe9e"
 	feiyoUID = "U90ccc43a7575a173397b9d8d0b5f1e01"
+	tataUID  = "Ua5d8aac70a1c84aa4d4c4850f1c0974c"
 )
 
 func main() {
@@ -98,15 +99,21 @@ func eventHandler(inUser, inMessage string) (results []linebot.SendingMessage, e
 			return
 		}
 
-		for _, data := range characterInfos {
-			results = append(results, linebot.NewTextMessage(data))
-		}
+		mergeDatas := strings.Join(characterInfos, "\n\n")
+		results = append(results, linebot.NewTextMessage(mergeDatas))
+
+		// for _, data := range characterInfos {
+		// 	results = append(results, linebot.NewTextMessage(data))
+		// }
 
 	case "抽":
 		preview, link := imgur.GetRandAlbumLink(imgur.AlbumGirl)
 
-		if inUser == feiyoUID {
-			preview, link = imgur.GetRandAlbumLink(imgur.AlbumFeiyo)
+		// if inUser == feiyoUID {
+		// 	preview, link = imgur.GetRandAlbumLink(imgur.AlbumFeiyo)
+		// }
+		if inUser == tataUID {
+			preview, link = imgur.GetRandAlbumLink(imgur.AlbumTATA)
 		}
 		//imageMsg := linebot.NewImageMessage("https://i.imgur.com/CMp5awi.png", "https://i.imgur.com/CMp5awi.png")
 
