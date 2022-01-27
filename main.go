@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/kkdai/LineBotTemplate/imgur"
@@ -43,7 +44,7 @@ func main() {
 	bot, err = linebot.New(channelSecret, channelAccessToken)
 	log.Println("Bot:", bot, " err:", err)
 	http.HandleFunc("/callback", callbackHandler)
-	//port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
 	log.Print("Server Start ...")
 	if err = http.ListenAndServe(addr, nil); err == nil {
