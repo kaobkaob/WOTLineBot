@@ -16,7 +16,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/kkdai/LineBotTemplate/imgur"
@@ -33,6 +32,10 @@ const (
 	channelSecret      = "ef013359722736ac09f50f90e882c27d"
 	channelAccessToken = "nVTZGhQzCtStrobItATyfE3evValw6eFQBVmWOisn13jTFriwxiTmaDYObv5SwgGqJZOSkkr9dYoRFZPj+vpUMvzvIsm6VOlM65ccBQUe/Etzda2P52OwNWlmoIdIPTwWxAkfeDYIoi8Pj7m4KUQxAdB04t89/1O/w1cDnyilFU="
 )
+const (
+	meUID    = "U4baaa53fe69d189e272d1aaa4deffe9e"
+	feiyoUID = "U90ccc43a7575a173397b9d8d0b5f1e01"
+)
 
 func main() {
 	var err error
@@ -40,7 +43,7 @@ func main() {
 	bot, err = linebot.New(channelSecret, channelAccessToken)
 	log.Println("Bot:", bot, " err:", err)
 	http.HandleFunc("/callback", callbackHandler)
-	port := os.Getenv("PORT")
+	//port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
 	log.Print("Server Start ...")
 	if err = http.ListenAndServe(addr, nil); err == nil {
@@ -101,7 +104,7 @@ func eventHandler(inUser, inMessage string) (results []linebot.SendingMessage, e
 	case "抽":
 		preview, link := imgur.GetRandAlbumLink(imgur.AlbumGirl)
 
-		if inUser == "" {
+		if inUser == feiyoUID {
 			preview, link = imgur.GetRandAlbumLink(imgur.AlbumFeiyo)
 		}
 		//imageMsg := linebot.NewImageMessage("https://i.imgur.com/CMp5awi.png", "https://i.imgur.com/CMp5awi.png")
